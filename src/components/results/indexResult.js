@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import './indexResult.scss'
 
 const Result = () => {
-    const res = useSelector(state => state.Calc.result)
-    console.log(res.length)
+    const res = useSelector(state => state.Calc.values)
+    console.log(res)
     return (
         <Fragment>
             <div>

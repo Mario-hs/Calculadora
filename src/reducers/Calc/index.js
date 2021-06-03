@@ -3,44 +3,54 @@ import { GET_NUMBER, GET_OPERATOR, CLEAR, CALC } from '../../actions'
 let initialState = {
     number: '',
     operator: '',
-    result: []
+    values: [],
 }
 
 export default function Calc(state = initialState, action) {
-    console.log(action.type);
-    console.log(initialState.result);
     switch (action.type) {
+        // Armazena os numeros para serem realizado a conta mais tarde
         case GET_NUMBER:
             initialState.number = action.number;
-            initialState.result.push(action.number);
+            initialState.values.push(action.number);
             return {
                 ...state,
                 number: action.number,
-                result: [...state.result, action.number]
+                values: [...state.values, action.number]
             };
 
+        // Armazena os operadores para mais tarde poder fazer as contas
         case GET_OPERATOR:
             initialState.operator = action.operator;
-            initialState.result.push(action.operator);
+            initialState.values.push(action.operator);
             return {
                 ...state,
                 operator: action.operator,
-                result: [...state.result, action.operator]
+                values: [...state.values, action.operator]
             };
 
-
+        // Limpa os dados para o usuário 
         case CLEAR:
             initialState.number = '';
             initialState.operator = '';
-            initialState.result = [];
+            initialState.values = [];
 
             return Object.assign({}, state, {
                 number: '',
-                result: [],
+                values: [],
                 perator: '',
             })
+
+        // Retorna os valores tudo vazio para recomeçar tudo do zero e retornar o resultsado da conta
         case CALC:
-            return null
+            initialState.number = '';
+            initialState.operator = '';
+            initialState.values = [];
+            return Object.assign({}, state, {
+                number: '',
+                values: [],
+                perator: '',
+            })
+
         default:
             return state;
     }
